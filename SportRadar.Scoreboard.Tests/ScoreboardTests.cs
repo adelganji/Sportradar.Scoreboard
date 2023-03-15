@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,32 @@ public class ScoreboardTests
             Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
         }
 
+        [Theory]
+        [InlineData("Mexico", "Canada", "03-14-2023 20:30:00")]
+        [InlineData("Spain", "Brazil", "03-14-2023 20:31:00")]
+        [InlineData("Germany", "France ", "03-14-2023 20:32:00")]
+        [InlineData("Uruguay", "Italy ", "03-14-2023 20:33:00")]
+        [InlineData("Argentina", "Australia", "03-14-2023 20:34:00")]
+        public void StartAMatchBetweenTwoTeamsAtACertainTime(string homeTeam, string awayTeam, string matchStartDate,
+    int matchStartYearExpectedValue = 2023,
+    int matchStartMonthExpectedValue = 3,
+    int matchStartDayExpectedValue = 14,
+    MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS
+    )
+        {
+            var _homeTeam = new Team(homeTeam);
+            var _awayTeam = new Team(awayTeam);
+
+            var _newMatch = new Match(_homeTeam, _awayTeam);
+
+            DateTime dt = DateTime.ParseExact(matchStartDate, "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            _newMatch.StartMatch(dt);
+
+            Assert.Equal(_newMatch.StartDate.Year, matchStartYearExpectedValue);
+            Assert.Equal(_newMatch.StartDate.Month, matchStartMonthExpectedValue);
+            Assert.Equal(_newMatch.StartDate.Day, matchStartDayExpectedValue);
+            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+        }
     }
 
 }
