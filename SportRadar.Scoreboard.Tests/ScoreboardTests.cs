@@ -125,5 +125,17 @@ public class ScoreboardTests
             Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
         }
     }
+    
+    public class MainScoreboardTests
+    {
+        [Fact]
+        public void CreateANewScoreboard_Name_WorldCup()
+        {
+            var newBoardName = "WorldCup";
+            var newScoreboard = new Scoreboard(newBoardName);
 
+            Assert.Equal(newScoreboard.Name, newBoardName);
+        }
+
+    }
 }
