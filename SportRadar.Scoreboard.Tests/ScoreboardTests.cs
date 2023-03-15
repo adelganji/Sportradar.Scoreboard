@@ -86,7 +86,7 @@ public class ScoreboardTests
         [InlineData("Germany", 2, "France ", 2)]
         [InlineData("Uruguay", 6, "Italy ", 6)]
         [InlineData("Argentina", 3, "Australia", 1)]
-        public void CreateAMatchAndStartTtAndUpdateMatchScore(string homeTeam, uint homeTeamScore, string awayTeam, uint awayTeamScore, 
+        public void CreateAMatchAndStartTtAndUpdateMatchScore(string homeTeam, uint homeTeamScore, string awayTeam, uint awayTeamScore,
             MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS)
         {
             var _homeTeam = new Team(homeTeam);
@@ -110,7 +110,7 @@ public class ScoreboardTests
         [InlineData("Germany", 2, "France ", 2)]
         [InlineData("Uruguay", 6, "Italy ", 6)]
         [InlineData("Argentina", 3, "Australia", 1)]
-        public void CreateAMatchAndStartTtAndUpdateMatchScoreAndFinishTheMatch(string homeTeam, uint homeTeamScore, string awayTeam, uint awayTeamScore, 
+        public void CreateAMatchAndStartTtAndUpdateMatchScoreAndFinishTheMatch(string homeTeam, uint homeTeamScore, string awayTeam, uint awayTeamScore,
             MatchStatus matchStatusExpectedValue = MatchStatus.ENDED)
         {
             var _homeTeam = new Team(homeTeam);
@@ -125,7 +125,7 @@ public class ScoreboardTests
             Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
         }
     }
-    
+
     public class MainScoreboardTests
     {
         [Fact]
@@ -135,6 +135,41 @@ public class ScoreboardTests
             var newScoreboard = new Scoreboard(newBoardName);
 
             Assert.Equal(newScoreboard.Name, newBoardName);
+        }
+
+        [Fact]
+        public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch()
+        {
+            var newBoardName = "WorldCup";
+            var NewScoreboard = new Scoreboard(newBoardName);
+
+            var newMatch_Mex_Can = new Match(new Team("Mexico"), new Team("Canada"));
+            var newMatch_Spn_Bra = new Match(new Team("Spain"), new Team("Brazil"));
+            var newMatch_Ger_Fra = new Match(new Team("Germany"), new Team("France"));
+            var newMatch_Uru_Ita = new Match(new Team("Uruguay"), new Team("Italy"));
+            var newMatch_Arg_Aus = new Match(new Team("Argentina"), new Team("Australia"));
+
+            NewScoreboard.AddMatch(newMatch_Mex_Can);
+            NewScoreboard.AddMatch(new List<Match> {
+            newMatch_Spn_Bra,
+            newMatch_Ger_Fra,
+            newMatch_Uru_Ita,
+            newMatch_Arg_Aus,
+            });
+
+            Assert.Equal(NewScoreboard.Name, newBoardName);
+            Assert.Equal(5, NewScoreboard.MatchList.Count);
+            Assert.Equal("Mexico - Canada", NewScoreboard.MatchList[0].GetMatchName());
+            Assert.Equal("Spain - Brazil", NewScoreboard.MatchList[1].GetMatchName());
+            Assert.Equal("Germany - France", NewScoreboard.MatchList[2].GetMatchName());
+            Assert.Equal("Uruguay - Italy", NewScoreboard.MatchList[3].GetMatchName());
+            Assert.Equal("Argentina - Australia", NewScoreboard.MatchList[4].GetMatchName());
+
+            Assert.Equal("Mex - Can", NewScoreboard.MatchList[0].GetMatchShortName());
+            Assert.Equal("Spa - Bra", NewScoreboard.MatchList[1].GetMatchShortName());
+            Assert.Equal("Ger - Fra", NewScoreboard.MatchList[2].GetMatchShortName());
+            Assert.Equal("Uru - Ita", NewScoreboard.MatchList[3].GetMatchShortName());
+            Assert.Equal("Arg - Aus", NewScoreboard.MatchList[4].GetMatchShortName());
         }
 
     }

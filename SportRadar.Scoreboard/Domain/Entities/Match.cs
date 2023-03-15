@@ -79,6 +79,26 @@ public class Match : IMatch
         Status = MatchStatus.ENDED;
     }
 
+    /// <summary>
+    /// Returns the name of both teams.
+    /// </summary>
+    /// <returns>For example: "Germany - France" </returns>
+    public string GetMatchName()
+    {
+        teamsAreValid();
+        return $"{HomeTeam.TeamName} - {AwayTeam.TeamName}";
+    }
+    /// <summary>
+    /// Returns the Short name of both teams.
+    /// </summary>
+    /// <returns>For example: "Ger - Fra" for  "Germany - France" </returns>
+    public string GetMatchShortName()
+    {
+        teamsAreValid();
+        return $"{HomeTeam.TeamShortName} - {AwayTeam.TeamShortName}";
+    }
+
+
 
     #region private methods
 
