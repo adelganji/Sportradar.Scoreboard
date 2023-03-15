@@ -9,15 +9,12 @@ namespace SportRadar.Scoreboard.Domain.Entities;
 
 public interface IMatch
 {
-    public interface IMatch
-    {
-        Team HomeTeam { get; }
-        Team AwayTeam { get; }
-        MatchStatus Status { get; }
-        DateTime StartDate { get; }
-        uint HomeTeamScore { get; }
-        uint AwayTeamScore { get; }
+    Team HomeTeam { get; }
+    Team AwayTeam { get; }
+    DateTime StartDate { get; }
+    MatchStatus Status { get; }
+    uint HomeTeamScore { get; }
+    uint AwayTeamScore { get; }
 
-        void StartMatch(DateTime? dateTime = null);
-    }
+    void StartMatch(DateTime? dateTime = null);
 }

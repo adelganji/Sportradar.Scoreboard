@@ -41,7 +41,7 @@ public class ScoreboardTests
         [InlineData("Argentina", "Australia")]
         public void CreateAMatchBetweenTwoTeams(string homeTeam, string awayTeam, MatchStatus matchStatusExpectedValue = MatchStatus.NOT_STARTED)
         {
-            if(homeTeam == awayTeam)
+            if (homeTeam == awayTeam)
                 throw new ArgumentException("Home team name and away team name cannot be the same.", nameof(awayTeam));
             var _homeTeam = new Team(homeTeam);
             var _awayTeam = new Team(awayTeam);
@@ -61,11 +61,11 @@ public class ScoreboardTests
         [InlineData("Uruguay", "Italy ", "03-14-2023 20:33:00")]
         [InlineData("Argentina", "Australia", "03-14-2023 20:34:00")]
         public void StartAMatchBetweenTwoTeamsAtACertainTime(string homeTeam, string awayTeam, string matchStartDate,
-    int matchStartYearExpectedValue = 2023,
-    int matchStartMonthExpectedValue = 3,
-    int matchStartDayExpectedValue = 14,
-    MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS
-    )
+        int matchStartYearExpectedValue = 2023,
+        int matchStartMonthExpectedValue = 3,
+        int matchStartDayExpectedValue = 14,
+        MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS
+        )
         {
             var _homeTeam = new Team(homeTeam);
             var _awayTeam = new Team(awayTeam);
