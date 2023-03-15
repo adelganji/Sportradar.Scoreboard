@@ -20,4 +20,6 @@ public interface IMatch
     void StartMatch(DateTime? dateTime = null);
     void UpdateScore(uint homeScore, uint awayScore);
     void EndMatch();
+    string GetMatchName();
+    string GetMatchShortName();
 }
