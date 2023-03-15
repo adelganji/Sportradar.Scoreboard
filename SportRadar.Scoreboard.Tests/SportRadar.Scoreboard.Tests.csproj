@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SportRadar.Scoreboard\SportRadar.Scoreboard.csproj" />
+  </ItemGroup>
+
 </Project>
