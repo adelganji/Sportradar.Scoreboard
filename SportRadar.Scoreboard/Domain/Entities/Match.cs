@@ -15,6 +15,7 @@ public class Match : IMatch
     public DateTime StartDate { get; private set; }
     public uint HomeTeamScore { get; private set; }
     public uint AwayTeamScore { get; private set; }
+    public uint TotalScore { get; private set; }
 
 
     /// <summary>
@@ -48,6 +49,34 @@ public class Match : IMatch
         HomeTeamScore = 0;
         AwayTeamScore = 0;
         Status = MatchStatus.STARTED_AND_INPROGRESS; // Of course the match will start at the time, but I imagine that the game has started here.
+    }
+
+    /// <summary>
+    /// This method sets scores for the home and away teams. 
+    /// </summary>
+    /// <param name="homeScore"> Home team score </param>
+    /// <param name="awayScore"> Away team score </param>
+    /// <exception cref="InvalidOperationException"></exception>
+    public void UpdateScore(uint homeScore, uint awayScore)
+    {
+        teamsAreValid();
+        if (Status != MatchStatus.STARTED_AND_INPROGRESS)
+            throw new InvalidOperationException("The score cannot be set for this match.");
+        HomeTeamScore = homeScore;
+        AwayTeamScore = awayScore;
+        TotalScore = homeScore + awayScore;
+    }
+
+    /// <summary>
+    /// The started match can be ended by this method.
+    /// </summary>
+    /// <exception cref="InvalidOperationException"></exception>
+    public void EndMatch()
+    {
+        teamsAreValid();
+        if (Status != MatchStatus.STARTED_AND_INPROGRESS)
+            throw new InvalidOperationException("This match cannot be ended.");
+        Status = MatchStatus.ENDED;
     }
 
 

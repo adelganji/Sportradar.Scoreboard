@@ -15,6 +15,9 @@ public interface IMatch
     MatchStatus Status { get; }
     uint HomeTeamScore { get; }
     uint AwayTeamScore { get; }
+    uint TotalScore { get; }
 
     void StartMatch(DateTime? dateTime = null);
+    void UpdateScore(uint homeScore, uint awayScore);
+    void EndMatch();
 }

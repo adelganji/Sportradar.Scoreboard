@@ -61,11 +61,11 @@ public class ScoreboardTests
         [InlineData("Uruguay", "Italy ", "03-14-2023 20:33:00")]
         [InlineData("Argentina", "Australia", "03-14-2023 20:34:00")]
         public void StartAMatchBetweenTwoTeamsAtACertainTime(string homeTeam, string awayTeam, string matchStartDate,
-        int matchStartYearExpectedValue = 2023,
-        int matchStartMonthExpectedValue = 3,
-        int matchStartDayExpectedValue = 14,
-        MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS
-        )
+            int matchStartYearExpectedValue = 2023,
+            int matchStartMonthExpectedValue = 3,
+            int matchStartDayExpectedValue = 14,
+            MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS
+            )
         {
             var _homeTeam = new Team(homeTeam);
             var _awayTeam = new Team(awayTeam);
@@ -78,6 +78,50 @@ public class ScoreboardTests
             Assert.Equal(_newMatch.StartDate.Year, matchStartYearExpectedValue);
             Assert.Equal(_newMatch.StartDate.Month, matchStartMonthExpectedValue);
             Assert.Equal(_newMatch.StartDate.Day, matchStartDayExpectedValue);
+            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+        }
+        [Theory]
+        [InlineData("Mexico", 0, "Canada", 5)]
+        [InlineData("Spain", 10, "Brazil", 2)]
+        [InlineData("Germany", 2, "France ", 2)]
+        [InlineData("Uruguay", 6, "Italy ", 6)]
+        [InlineData("Argentina", 3, "Australia", 1)]
+        public void CreateAMatchAndStartTtAndUpdateMatchScore(string homeTeam, uint homeTeamScore, string awayTeam, uint awayTeamScore, 
+            MatchStatus matchStatusExpectedValue = MatchStatus.STARTED_AND_INPROGRESS)
+        {
+            var _homeTeam = new Team(homeTeam);
+            var _awayTeam = new Team(awayTeam);
+
+            var _newMatch = new Match(_homeTeam, _awayTeam);
+            _newMatch.StartMatch();
+
+            _newMatch.UpdateScore(homeTeamScore, awayTeamScore);
+
+            Assert.Equal(_newMatch.HomeTeamScore, homeTeamScore);
+            Assert.Equal(_newMatch.AwayTeamScore, awayTeamScore);
+            Assert.Equal(_newMatch.TotalScore, homeTeamScore + awayTeamScore);
+            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+        }
+
+
+        [Theory]
+        [InlineData("Mexico", 0, "Canada", 5)]
+        [InlineData("Spain", 10, "Brazil", 2)]
+        [InlineData("Germany", 2, "France ", 2)]
+        [InlineData("Uruguay", 6, "Italy ", 6)]
+        [InlineData("Argentina", 3, "Australia", 1)]
+        public void CreateAMatchAndStartTtAndUpdateMatchScoreAndFinishTheMatch(string homeTeam, uint homeTeamScore, string awayTeam, uint awayTeamScore, 
+            MatchStatus matchStatusExpectedValue = MatchStatus.ENDED)
+        {
+            var _homeTeam = new Team(homeTeam);
+            var _awayTeam = new Team(awayTeam);
+
+            var _newMatch = new Match(_homeTeam, _awayTeam);
+            _newMatch.StartMatch();
+
+            _newMatch.UpdateScore(homeTeamScore, awayTeamScore);
+            _newMatch.EndMatch();
+
             Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
         }
     }
