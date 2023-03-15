@@ -22,4 +22,6 @@ public interface IMatch
     void EndMatch();
     string GetMatchName();
     string GetMatchShortName();
+    public string GetMatchResultSummary();
+    public string GetMatchResultSummaryWithShortName();
 }
