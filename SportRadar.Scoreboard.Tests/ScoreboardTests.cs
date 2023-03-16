@@ -27,7 +27,7 @@ public class ScoreboardTests
         public void CreateTeam(string teamName)
         {
             var team = new Team(teamName);
-            Assert.Equal(team.TeamName, teamName);
+            Assert.Equal(teamName, team.TeamName);
         }
     }
 
@@ -48,10 +48,10 @@ public class ScoreboardTests
 
             var _newMatch = new Match(_homeTeam, _awayTeam);
 
-            Assert.Equal(_newMatch.HomeTeam.TeamName, homeTeam);
-            Assert.Equal(_newMatch.AwayTeam.TeamName, awayTeam);
+            Assert.Equal(homeTeam, _newMatch.HomeTeam.TeamName);
+            Assert.Equal(awayTeam, _newMatch.AwayTeam.TeamName);
 
-            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+            Assert.Equal(matchStatusExpectedValue, _newMatch.Status);
         }
 
         [Theory]
@@ -75,10 +75,10 @@ public class ScoreboardTests
             DateTime dt = DateTime.ParseExact(matchStartDate, "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             _newMatch.StartMatch(dt);
 
-            Assert.Equal(_newMatch.StartDate.Year, matchStartYearExpectedValue);
-            Assert.Equal(_newMatch.StartDate.Month, matchStartMonthExpectedValue);
-            Assert.Equal(_newMatch.StartDate.Day, matchStartDayExpectedValue);
-            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+            Assert.Equal(matchStartYearExpectedValue, _newMatch.StartDate.Year);
+            Assert.Equal(matchStartMonthExpectedValue, _newMatch.StartDate.Month);
+            Assert.Equal(matchStartDayExpectedValue, _newMatch.StartDate.Day);
+            Assert.Equal(matchStatusExpectedValue, _newMatch.Status);
         }
         [Theory]
         [InlineData("Mexico", 0, "Canada", 5)]
@@ -97,10 +97,10 @@ public class ScoreboardTests
 
             _newMatch.UpdateScore(homeTeamScore, awayTeamScore);
 
-            Assert.Equal(_newMatch.HomeTeamScore, homeTeamScore);
-            Assert.Equal(_newMatch.AwayTeamScore, awayTeamScore);
-            Assert.Equal(_newMatch.TotalScore, homeTeamScore + awayTeamScore);
-            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+            Assert.Equal(homeTeamScore, _newMatch.HomeTeamScore);
+            Assert.Equal(awayTeamScore, _newMatch.AwayTeamScore);
+            Assert.Equal(homeTeamScore + awayTeamScore, _newMatch.TotalScore);
+            Assert.Equal(matchStatusExpectedValue, _newMatch.Status);
         }
 
 
@@ -122,7 +122,7 @@ public class ScoreboardTests
             _newMatch.UpdateScore(homeTeamScore, awayTeamScore);
             _newMatch.EndMatch();
 
-            Assert.Equal(_newMatch.Status, matchStatusExpectedValue);
+            Assert.Equal(matchStatusExpectedValue, _newMatch.Status);
         }
     }
 
@@ -134,7 +134,7 @@ public class ScoreboardTests
             var newBoardName = "WorldCup";
             var newScoreboard = new Scoreboard(newBoardName);
 
-            Assert.Equal(newScoreboard.Name, newBoardName);
+            Assert.Equal(newBoardName, newScoreboard.Name);
         }
 
         [Fact]
@@ -172,7 +172,7 @@ public class ScoreboardTests
             Assert.Equal("Arg - Aus", NewScoreboard.MatchList[4].GetMatchShortName());
         }
 
-                [Fact]
+        [Fact]
         public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch_StartGames_UpdateScores()
         {
             var newBoardName = "WorldCup";
@@ -203,7 +203,7 @@ public class ScoreboardTests
 
             newMatch_Uru_Ita.StartMatch(DateTime.ParseExact("03-14-2023 20:33:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
             newMatch_Uru_Ita.UpdateScore(6, 6);
-            
+
             newMatch_Arg_Aus.StartMatch(DateTime.ParseExact("03-14-2023 20:34:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
             newMatch_Arg_Aus.UpdateScore(3, 1);
 
@@ -217,14 +217,14 @@ public class ScoreboardTests
             Assert.Equal("Uru - Ita", NewScoreboard.MatchList[3].GetMatchShortName());
             Assert.Equal("Arg - Aus", NewScoreboard.MatchList[4].GetMatchShortName());
 
-            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS , NewScoreboard.MatchList[0].Status);
-            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS , NewScoreboard.MatchList[1].Status);
-            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS , NewScoreboard.MatchList[2].Status);
-            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS , NewScoreboard.MatchList[3].Status);
-            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS , NewScoreboard.MatchList[4].Status);
+            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, NewScoreboard.MatchList[0].Status);
+            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, NewScoreboard.MatchList[1].Status);
+            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, NewScoreboard.MatchList[2].Status);
+            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, NewScoreboard.MatchList[3].Status);
+            Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, NewScoreboard.MatchList[4].Status);
         }
         [Fact]
-        public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch_StartGames_UpdateScores_GetOnLineList()
+        public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch_StartGames_UpdateScores_GetOnlineList()
         {
             var newBoardName = "WorldCup";
             var NewScoreboard = new Scoreboard(newBoardName);
@@ -265,7 +265,6 @@ public class ScoreboardTests
             Assert.Equal(5, NewScoreboard.MatchList.Count);
 
             var onlineScoreboard = NewScoreboard.GetOnlineMatches();
-
             Assert.Equal(3, onlineScoreboard.Count);
             Assert.Equal("Spa - Bra", onlineScoreboard[0].GetMatchShortName());
             Assert.Equal("Mex - Can", onlineScoreboard[1].GetMatchShortName());
@@ -273,7 +272,7 @@ public class ScoreboardTests
         }
 
         [Fact]
-        public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch_StartGames_UpdateScores_GetOnLineList_AndCheckAllToo()
+        public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch_StartGames_UpdateScores_GetOnlineList_AndCheckAllToo()
         {
             var newBoardName = "WorldCup";
             var NewScoreboard = new Scoreboard(newBoardName);
@@ -314,7 +313,6 @@ public class ScoreboardTests
             Assert.Equal(5, NewScoreboard.MatchList.Count);
 
             var onlineScoreboard = NewScoreboard.GetOnlineMatches();
-
             Assert.Equal(3, onlineScoreboard.Count);
             Assert.Equal("Spa - Bra", onlineScoreboard[0].GetMatchShortName());
             Assert.Equal("Mex - Can", onlineScoreboard[1].GetMatchShortName());
@@ -333,6 +331,62 @@ public class ScoreboardTests
             Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, allMatchsScoreboard[2].Status);
             Assert.Equal(MatchStatus.STARTED_AND_INPROGRESS, allMatchsScoreboard[3].Status);
             Assert.Equal(MatchStatus.ENDED, allMatchsScoreboard[4].Status);
+        }
+
+        [Fact]
+        public void CreateANewScoreboard_Name_WorldCup_AddSomeMatch_StartGames_UpdateScores_GetOnlineListResult_AndCheckAllMatchResult()
+        {
+            var newBoardName = "WorldCup";
+            var NewScoreboard = new Scoreboard(newBoardName);
+
+            var newMatch_Mex_Can = new Match(new Team("Mexico"), new Team("Canada"));
+            var newMatch_Spn_Bra = new Match(new Team("Spain"), new Team("Brazil"));
+            var newMatch_Ger_Fra = new Match(new Team("Germany"), new Team("France"));
+            var newMatch_Uru_Ita = new Match(new Team("Uruguay"), new Team("Italy"));
+            var newMatch_Arg_Aus = new Match(new Team("Argentina"), new Team("Australia"));
+
+            NewScoreboard.AddMatch(newMatch_Mex_Can);
+            NewScoreboard.AddMatch(new List<Match> {
+            newMatch_Spn_Bra,
+            newMatch_Ger_Fra,
+            newMatch_Uru_Ita,
+            newMatch_Arg_Aus,
+            });
+
+            newMatch_Mex_Can.StartMatch(DateTime.ParseExact("03-14-2023 20:30:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+            newMatch_Mex_Can.UpdateScore(0, 5);
+
+            newMatch_Spn_Bra.StartMatch(DateTime.ParseExact("03-14-2023 20:31:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+            newMatch_Spn_Bra.UpdateScore(10, 2);
+
+            newMatch_Ger_Fra.StartMatch(DateTime.ParseExact("03-14-2023 20:32:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+            newMatch_Ger_Fra.UpdateScore(2, 2);
+            newMatch_Ger_Fra.EndMatch();
+
+            newMatch_Uru_Ita.StartMatch(DateTime.ParseExact("03-14-2023 20:33:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+            newMatch_Uru_Ita.UpdateScore(6, 6);
+            newMatch_Uru_Ita.EndMatch();
+
+            newMatch_Arg_Aus.StartMatch(DateTime.ParseExact("03-14-2023 20:34:00", "MM-dd-yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+            newMatch_Arg_Aus.UpdateScore(3, 1);
+
+
+            Assert.Equal(NewScoreboard.Name, newBoardName);
+            Assert.Equal(5, NewScoreboard.MatchList.Count);
+
+            var onlineScoreboard = NewScoreboard.GetOnlineMatches();
+            Assert.Equal(3, onlineScoreboard.Count);
+            Assert.Equal("Spain 10 - Brazil 2", onlineScoreboard[0].GetMatchResultSummary());
+            Assert.Equal("Mexico 0 - Canada 5", onlineScoreboard[1].GetMatchResultSummary());
+            Assert.Equal("Argentina 3 - Australia 1", onlineScoreboard[2].GetMatchResultSummary());
+
+            var allMatchsScoreboard = NewScoreboard.GetAllMatches();
+            Assert.Equal(5, allMatchsScoreboard.Count);
+            Assert.Equal("Uru 6 - Ita 6", allMatchsScoreboard[0].GetMatchResultSummaryWithShortName());
+            Assert.Equal("Spa 10 - Bra 2", allMatchsScoreboard[1].GetMatchResultSummaryWithShortName());
+            Assert.Equal("Mex 0 - Can 5", allMatchsScoreboard[2].GetMatchResultSummaryWithShortName());
+            Assert.Equal("Arg 3 - Aus 1", allMatchsScoreboard[3].GetMatchResultSummaryWithShortName());
+            Assert.Equal("Ger 2 - Fra 2", allMatchsScoreboard[4].GetMatchResultSummaryWithShortName());
         }
 
     }

@@ -99,6 +99,25 @@ public class Match : IMatch
     }
 
 
+    /// <summary>
+    /// Returns the name of both teams with their scores.
+    /// </summary>
+    /// <returns>for example: "Germany 2 - France 2" </returns>
+    public string GetMatchResultSummary()
+    {
+        teamsAreValid();
+        return $"{HomeTeam.TeamName} {HomeTeamScore} - {AwayTeam.TeamName} {AwayTeamScore}";
+    }
+
+    /// <summary>
+    /// Returns the short name of both teams with their scores.
+    /// </summary>
+    /// <returns>for example: "Ger 2 - Fra 2" for "Germany 2 - France 2" </returns>
+    public string GetMatchResultSummaryWithShortName()
+    {
+        teamsAreValid();
+        return $"{HomeTeam.TeamShortName} {HomeTeamScore} - {AwayTeam.TeamShortName} {AwayTeamScore}";
+    }
 
     #region private methods
 
