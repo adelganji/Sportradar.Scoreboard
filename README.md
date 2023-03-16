@@ -35,7 +35,7 @@ newScoreboard.AddMatch(newMatch_Ger_Fra);
 
 // you can get list of online matches from : newScoreboard.GetOnlineMatches()
 
-newMatch_Ger_Fra.GetMatchResultSummary() \\ retuns: Germany 2 - France 2
+newMatch_Ger_Fra.GetMatchResultSummary() // retuns: Germany 2 - France 2
 //or 
 newScoreboard.GetAllMatches()[0].GetMatchResultSummary()
 ```
