@@ -1,7 +1,8 @@
 # Sportradar.Scoreboard
 ## Live Football World Cup Score Board Library
 This is a simple .NET 6 library that implements a live score board for the Football World Cup. It allows users to view the scores of matches in real-time, as well as the current standings of teams in the tournament.
-Task Instructions [here](https://github.com/adelganji/Sportradar.Scoreboard/tree/main/docs/Instructions.txt)
+
+Task Instructions [here](/docs/Instructions.txt)
 ## Implementation
 
 The solution has been implemented using C# in .NET 6 and following Object-Oriented Programming (OOP) and the code also adheres to the SOLID design principles, ensuring that it is easy to understand, maintain, and extend.
